@@ -3,8 +3,23 @@
   <%= link_to "Register", new_user_path %>
   <%= link_to "Sign In", "/login" %>
 <% else %>
-  <%= link_to "Log out", "/logout", data: {
-  turbo_method: :delete,
-  turbo_confirm: "Are you sure?"} %>
+  <center>
+    <%= form_tag "/book_users", method: "post" do %>
+      <%= label_tag :isbn, "ISBN:" %>
+      <%= text_field_tag :isbn %>
+      <%= submit_tag "Add Book" %>
+  </center>
+    <% end %>
+      <% current_user.books.each do |book| %>
+        <p>
+          <%= image_tag book.thumbnail %> <%= book.title %> </br>
+          <%= book.description %>
+        </p>
+      <% end %>
+  <p>
+    <%= link_to "Log out", "/logout", data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"} %>
+  </p>
 <% end %>
 
